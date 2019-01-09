@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Date;
 
 /**
  * All work is created by Matt Sievers on 01-09-2019 for use in CST-105
