@@ -7,9 +7,12 @@ import java.io.*;
  */
 public class TwoDArray {
 
-  public static void main(String[] args) throws Exception {
+  public static String minFile = "/Users/ntqams30/Dropbox/GCU Work/CST-105/MyFirstProject/src/week5FileInput";
+  public static String maxFile = "/Users/ntqams30/Dropbox/GCU Work/CST-105/MyFirstProject/src/week5FileInput2";
+
+  public static void readInput(String fileName) throws IOException{
     try (
-            FileReader fr = new FileReader("/Users/ntqams30/Dropbox/GCU Work/CST-105/MyFirstProject/src/week5FileInput2");
+            FileReader fr = new FileReader(fileName);
             BufferedReader br = new BufferedReader(fr);
             Scanner input = new Scanner(br);
     ) {
@@ -32,14 +35,22 @@ public class TwoDArray {
       }
       System.out.println();
       String output = "";
-      for(int col = 0; col < colCount; col++){
-        for(int row = 0; row < rowCount; row++){
+      for (int col = 0; col < colCount; col++) {
+        for (int row = 0; row < rowCount; row++) {
           output += charArray[row][col];
         }
       }
       System.out.println(output);
     }
   }
+
+  public static void main(String[] args) throws Exception {
+    readInput(minFile);
+    readInput(maxFile);
+  }
 }
+
+
+
 
 
