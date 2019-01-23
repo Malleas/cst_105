@@ -3,50 +3,15 @@
 +<<constructor>>NFL_Player() {...}
 playerArray[]
 ==constructor objects==
-playerKey;
-firstName;
-lastName;
-position;
-team;
-jerseyNumber;
+playerKey : int
+firstName : String
+lastName : String
+position : String
+teamName : String
+jerseyNumber : int
 
 }
-+class PlayerKey{
-+getPlayerKey()
-+setPlayerKey(int playerKey)
-}
 
-+class FirstName{
-+getFirstName()
-+etFirstName(String firstName)
-}
-
-+class LastName{
-+getLastName()
-+setLastName(String lastName)
-}
-
-+class Position{
-+getPosition()
-+setPosition(String position)
-}
-
-+class Team{
-+getTeam()
-+setTeam(String team)
-}
-
-+class JerseyNumber{
-+getJerseyNumber()
-+setJerseyNumber(int jerseyNumber)
-}
-
-PlayerKey <-- NFL_Player
-FirstName <-- NFL_Player
-LastName <-- NFL_Player
-Position <-- NFL_Player
-Team <-- NFL_Player
-JerseyNumber <-- NFL_Player
 
 @enduml
 
