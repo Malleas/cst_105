@@ -20,16 +20,16 @@ public class NFL_Player {
   private int numberOfSuperBowlWins;
 
   public static void main(String[] args) throws IOException {
-    NFL_Player player = new NFL_Player();
-    newPlayer("BOB", "Smith", "QB", "Titans", 42, 120, 2);
-    writePlayerToFile();
-    playerStats();
+    NFL_Player player = newPlayer("BOB", "Smith", "QB", "Titans", 42, 120, 2);
+    writePlayerToFile(player);
+    playerStats(player);
   }
 
-  private static void newPlayer
+  private static NFL_Player newPlayer
           (String firstName, String lastName, String position, String teamName,
            int rushingYards, int passingYards, int numberOfSuperBowlWins) {
     NFL_Player player = new NFL_Player();
+    player.setPlayerKey(NFL_Player.playerKey());
     player.setFirstName(firstName);
     player.setLastName(lastName);
     player.setPosition(position);
@@ -40,17 +40,16 @@ public class NFL_Player {
     player.setTotalYardsPerGame(rushingYards, passingYards);
     player.setNumberOfSuperBowlWins(numberOfSuperBowlWins);
 
+    return player;
   }
 
-  private static void playerKey(){
-    NFL_Player player = new NFL_Player();
+  private static String playerKey() {
     UUID uuid = UUID.randomUUID();
     String key = uuid.toString();
-    player.setPlayerKey(key);
+    return key;
   }
 
-  private static void playerStats() {
-    NFL_Player player = new NFL_Player();
+  private static void playerStats(NFL_Player player) {
     String name = player.getFullName(player.firstName, player.lastName);
     int tYards = player.getTotalYardsPerGame(player.rushingYards, player.passingYards);
     int sbWins = player.getNumberOfSuperBowlWins();
@@ -59,13 +58,10 @@ public class NFL_Player {
 
   }
 
-  private static void writePlayerToFile() throws IOException {
-    try (
-            BufferedWriter bw = new BufferedWriter(new FileWriter("Player File"))
-    ) {
+  private static void writePlayerToFile(NFL_Player player) throws IOException {
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter("Player File"))) {
       int playerCount = 2;
       for (int i = 0; i < playerCount; i++) {
-        NFL_Player player = new NFL_Player();
         String key = player.getPlayerKey();
         String fname = player.getFirstName();
         String lname = player.getLastName();
@@ -76,25 +72,26 @@ public class NFL_Player {
         int pYards = player.getPassingYards();
         int tYards = player.getTotalYardsPerGame(player.rushingYards, player.passingYards);
         int sbWins = player.getNumberOfSuperBowlWins();
-        String playerFull = ((key + " " + fname + " " + lname + " " + name + " " + pos
+        String playerFile = (key + " " + fname + " " + lname + " " + name + " " + pos
                 + " " + team + " " + rYards + " " + pYards + " " + tYards + " " + sbWins
-                + "," + "\n").toUpperCase());
-        bw.write(playerFull);
+                + "," + "\n");
+        bw.write(playerFile);
       }
     }
   }
 
- // public static void createArray(String playerFile) throws IOException {
- //   try (
- //           FileReader fr = new FileReader(playerFile);
- //           BufferedReader br = new BufferedReader(fr);
- //           Scanner input = new Scanner(br);
- //   ) {
- //     String playerStr = input.nextLine();
- //     ArrayList<String> playerArray = new ArrayList<String>();
- //     playerArray.add(String.valueOf(playerStr.split(",")));
- //   }
- // }
+
+  // public static void createArray(String playerFile) throws IOException {
+  //   try (
+  //           FileReader fr = new FileReader(playerFile);
+  //           BufferedReader br = new BufferedReader(fr);
+  //           Scanner input = new Scanner(br);
+  //   ) {
+  //     String playerStr = input.nextLine();
+  //     ArrayList<String> playerArray = new ArrayList<String>();
+  //     playerArray.add(String.valueOf(playerStr.split(",")));
+  //   }
+  // }
 
 
   private String getPlayerKey() {
@@ -138,7 +135,7 @@ public class NFL_Player {
   }
 
   private String getFullName(String firstName, String lastName) {
-    return fullName;
+    return firstName + " " + lastName;
   }
 
   private void setFullName(String firstName, String lastName) {
