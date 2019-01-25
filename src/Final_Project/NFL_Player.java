@@ -8,7 +8,7 @@ import java.util.UUID;
  */
 public class NFL_Player {
 
-  private UUID playerKey;
+  private String playerKey;
   private String firstName;
   private String lastName;
   private String position;
@@ -21,18 +21,13 @@ public class NFL_Player {
 
   public static void main(String[] args) throws IOException {
     NFL_Player player = new NFL_Player();
-    UUID uuid = UUID.randomUUID();
-    String key = uuid.toString();
-    newPlayer(key, "BOB", "Smith", "QB", "Titans", 42, 120, 2);
+    newPlayer("BOB", "Smith", "QB", "Titans", 42, 120, 2);
     writePlayerToFile();
     playerStats();
   }
 
-  public String toString(){
-  }
-
   private static void newPlayer
-          (String key, String firstName, String lastName, String position, String teamName,
+          (String firstName, String lastName, String position, String teamName,
            int rushingYards, int passingYards, int numberOfSuperBowlWins) {
     NFL_Player player = new NFL_Player();
     player.setFirstName(firstName);
@@ -47,9 +42,16 @@ public class NFL_Player {
 
   }
 
+  private static void playerKey(){
+    NFL_Player player = new NFL_Player();
+    UUID uuid = UUID.randomUUID();
+    String key = uuid.toString();
+    player.setPlayerKey(key);
+  }
+
   private static void playerStats() {
     NFL_Player player = new NFL_Player();
-    String name = player.getFullName();
+    String name = player.getFullName(player.firstName, player.lastName);
     int tYards = player.getTotalYardsPerGame(player.rushingYards, player.passingYards);
     int sbWins = player.getNumberOfSuperBowlWins();
     System.out.println("Player Name: " + name + "\n" + "Total Yards: " + tYards + "\n" + "Number of Super Bowl wins: "
@@ -58,22 +60,21 @@ public class NFL_Player {
   }
 
   private static void writePlayerToFile() throws IOException {
-    NFL_Player player = new NFL_Player();
     try (
             BufferedWriter bw = new BufferedWriter(new FileWriter("Player File"))
     ) {
       int playerCount = 2;
       for (int i = 0; i < playerCount; i++) {
         NFL_Player player = new NFL_Player();
-        UUID key = player.getPlayerKey();
+        String key = player.getPlayerKey();
         String fname = player.getFirstName();
         String lname = player.getLastName();
         String pos = player.getPosition();
         String team = player.getTeamName();
-        String name = player.getFullName();
+        String name = player.getFullName(player.firstName, player.lastName);
         int rYards = player.getRushingYards();
         int pYards = player.getPassingYards();
-        int tYards = (int) player.getTotalYardsPerGame();
+        int tYards = player.getTotalYardsPerGame(player.rushingYards, player.passingYards);
         int sbWins = player.getNumberOfSuperBowlWins();
         String playerFull = ((key + " " + fname + " " + lname + " " + name + " " + pos
                 + " " + team + " " + rYards + " " + pYards + " " + tYards + " " + sbWins
@@ -96,11 +97,11 @@ public class NFL_Player {
  // }
 
 
-  private UUID getPlayerKey() {
+  private String getPlayerKey() {
     return playerKey;
   }
 
-  private void setPlayerKey(UUID playerKey) {
+  private void setPlayerKey(String playerKey) {
     this.playerKey = playerKey;
   }
 
@@ -137,7 +138,7 @@ public class NFL_Player {
   }
 
   private String getFullName(String firstName, String lastName) {
-    return fullName
+    return fullName;
   }
 
   private void setFullName(String firstName, String lastName) {
