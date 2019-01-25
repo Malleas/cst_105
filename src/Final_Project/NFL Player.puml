@@ -1,16 +1,69 @@
 @startuml
-+interface NFL_Player{
-+<<constructor>>NFL_Player() {...}
-playerArray[]
-==constructor objects==
-playerKey : int
-firstName : String
-lastName : String
-position : String
-teamName : String
+
++class NFL_Player {
++main
+NFL_Player player = newPlayer()
+writePlayerToFile(player);
+playerStats(player);
+==Properties==
+-String playerKey;
+-String firstName;
+-String lastName;
+-String position;
+-String teamName;
+-String fullName;
+-int rushingYards;
+-int passingYards;
+-int totalYardsPerGame;
+-int numberOfSuperBowlWins;
 
 }
 
+-class newPlayer{
+==Setters==
+setPlayerKey(NFL_Player.playerKey());
+setFirstName(firstName);
+setLastName(lastName);
+setPosition(position);
+setTeamName(teamName);
+setFullName(firstName, lastName);
+setRushingYards(rushingYards);
+setPassingYards(passingYards);
+setTotalYardsPerGame(rushingYards, passingYards);
+setNumberOfSuperBowlWins(numberOfSuperBowlWins);
+}
+
+-class playerKey{
+generation of UUID
+}
+
+-class playerStats{
+Display stats with getters that concat values
+}
+
+-class writePlayerToFile{
+Create BufferedWriter
+For loop to itterate through multiple players
+==Getters==
+player.getPlayerKey();
+player.getFirstName();
+player.getLastName();
+player.getPosition();
+player.getTeamName();
+player.getFullName(player.firstName, player.lastName);
+player.getRushingYards();
+player.getPassingYards();
+player.getTotalYardsPerGame(player.rushingYards, player.passingYards);
+player.getNumberOfSuperBowlWins();
+}
+
+
+NFL_Player --> newPlayer
+newPlayer --> playerKey
+NFL_Player --> playerStats
+NFL_Player --> writePlayerToFile
 
 @enduml
+
+
 
