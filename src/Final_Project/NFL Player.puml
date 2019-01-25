@@ -1,3 +1,8 @@
+
+/**
+ * All work is created by Matt Sievers on 01-22-2019 for use in CST-105
+ */
+
 @startuml
 
 +class NFL_Player {
