@@ -1,6 +1,10 @@
 package Final_Project;
 
 import java.io.*;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 import java.util.UUID;
 
 /**
@@ -20,10 +24,39 @@ public class NFL_Player {
   private int numberOfSuperBowlWins;
 
   public static void main(String[] args) throws IOException {
-    NFL_Player player = newPlayer("BOB", "Smith", "QB", "Titans", 42, 120, 2);
+    //NFL_Player player = newPlayer("BOB", "Smith", "QB", "Titans", 42, 120, 2);
+    NFL_Player player = createPlayer(6);
     writePlayerToFile(player);
     playerStats(player);
+    playerManager(player);
   }
+
+  private static NFL_Player createPlayer(int playerCount) {
+    NFL_Player player = new NFL_Player();
+    for (int i = 0; i < playerCount; i++) {
+      player.setPlayerKey(NFL_Player.playerKey());
+      player.setFirstName(randomeName());
+      player.setLastName(randomeName());
+      player.setPosition(randomeName());
+      player.setTeamName(randomeName());
+      player.setRushingYards((int) (Math.random() * 10));
+      player.setPassingYards((int) (Math.random() * 10));
+      player.setNumberOfSuperBowlWins((int) (Math.random() * 10));
+    }
+    return player;
+  }
+
+  private static String randomeName() {
+    String characters = "ABCDEFGHIJKLMNOPQRStUVWXYZ";
+    StringBuilder sb = new StringBuilder();
+    Random random = new Random();
+    while (sb.length() < 10) {
+      int index = (int) (random.nextFloat() * characters.length());
+      sb.append(characters.charAt(index));
+    }
+    return sb.toString();
+  }
+
 
   private static NFL_Player newPlayer
           (String firstName, String lastName, String position, String teamName,
@@ -60,7 +93,7 @@ public class NFL_Player {
 
   private static void writePlayerToFile(NFL_Player player) throws IOException {
     try (BufferedWriter bw = new BufferedWriter(new FileWriter("Player File"))) {
-      int playerCount = 2;
+      int playerCount = 6;
       for (int i = 0; i < playerCount; i++) {
         String key = player.getPlayerKey();
         String fname = player.getFirstName();
@@ -81,17 +114,23 @@ public class NFL_Player {
   }
 
 
-  // public static void createArray(String playerFile) throws IOException {
-  //   try (
-  //           FileReader fr = new FileReader(playerFile);
-  //           BufferedReader br = new BufferedReader(fr);
-  //           Scanner input = new Scanner(br);
-  //   ) {
-  //     String playerStr = input.nextLine();
-  //     ArrayList<String> playerArray = new ArrayList<String>();
-  //     playerArray.add(String.valueOf(playerStr.split(",")));
-  //   }
-  // }
+  public static void playerManager(NFL_Player player) {
+    ArrayList<String> playerArray = new ArrayList<String>();
+    playerArray.add(player.playerKey);
+    playerArray.add(player.firstName);
+    playerArray.add(player.lastName);
+    playerArray.add(player.position);
+    playerArray.add(player.teamName);
+    System.out.print(playerArray.get(2) + "BLAHBLAH");
+  }
+
+  private static void statManger(NFL_Player player){
+    ArrayList<Integer> statArray = new ArrayList<Integer>();
+    statArray.add(player.rushingYards);
+    statArray.add(player.passingYards);
+    statArray.add(player.numberOfSuperBowlWins);
+
+  }
 
 
   private String getPlayerKey() {
