@@ -1,11 +1,12 @@
 package Final_Project;
 
 import java.io.*;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.UUID;
+
+import static Final_Project.Helpers.KeyGen.playerKey;
 
 /**
  * All work is created by Matt Sievers on 01-22-2019 for use in CST-105
@@ -17,202 +18,131 @@ public class NFL_Player {
   private String lastName;
   private String position;
   private String teamName;
-  private String fullName;
   private int rushingYards;
   private int passingYards;
-  private int totalYardsPerGame;
   private int numberOfSuperBowlWins;
 
-  public static void main(String[] args) throws IOException {
-    //NFL_Player player = newPlayer("BOB", "Smith", "QB", "Titans", 42, 120, 2);
-    NFL_Player player = createPlayer(6);
-    writePlayerToFile(player);
-    playerStats(player);
-    playerManager(player);
+  public NFL_Player(String playerKey, String firstName, String lastName, String position, String teamName,
+                    int rushingYards, int passingYards, int numberOfSuperBowlWins) {
+    this.playerKey = playerKey;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.position = position;
+    this.teamName = teamName;
+    this.rushingYards = rushingYards;
+    this.passingYards = passingYards;
+    this.numberOfSuperBowlWins = numberOfSuperBowlWins;
   }
 
-  private static NFL_Player createPlayer(int playerCount) {
-    NFL_Player player = new NFL_Player();
-    for (int i = 0; i < playerCount; i++) {
-      player.setPlayerKey(NFL_Player.playerKey());
-      player.setFirstName(randomeName());
-      player.setLastName(randomeName());
-      player.setPosition(randomeName());
-      player.setTeamName(randomeName());
-      player.setRushingYards((int) (Math.random() * 10));
-      player.setPassingYards((int) (Math.random() * 10));
-      player.setNumberOfSuperBowlWins((int) (Math.random() * 10));
-    }
-    return player;
-  }
-
-  private static String randomeName() {
-    String characters = "ABCDEFGHIJKLMNOPQRStUVWXYZ";
-    StringBuilder sb = new StringBuilder();
-    Random random = new Random();
-    while (sb.length() < 10) {
-      int index = (int) (random.nextFloat() * characters.length());
-      sb.append(characters.charAt(index));
-    }
-    return sb.toString();
-  }
+  public NFL_Player(){}
 
 
-  private static NFL_Player newPlayer
-          (String firstName, String lastName, String position, String teamName,
-           int rushingYards, int passingYards, int numberOfSuperBowlWins) {
-    NFL_Player player = new NFL_Player();
-    player.setPlayerKey(NFL_Player.playerKey());
-    player.setFirstName(firstName);
-    player.setLastName(lastName);
-    player.setPosition(position);
-    player.setTeamName(teamName);
-    player.setFullName(firstName, lastName);
-    player.setRushingYards(rushingYards);
-    player.setPassingYards(passingYards);
-    player.setTotalYardsPerGame(rushingYards, passingYards);
-    player.setNumberOfSuperBowlWins(numberOfSuperBowlWins);
-
-    return player;
-  }
-
-  private static String playerKey() {
-    UUID uuid = UUID.randomUUID();
-    String key = uuid.toString();
-    return key;
-  }
-
-  private static void playerStats(NFL_Player player) {
-    String name = player.getFullName(player.firstName, player.lastName);
-    int tYards = player.getTotalYardsPerGame(player.rushingYards, player.passingYards);
-    int sbWins = player.getNumberOfSuperBowlWins();
+  public void printPlayerStats() {
+    String name = this.getFullName();
+    int tYards = this.getTotalYardsPerGame();
+    int sbWins = this.getNumberOfSuperBowlWins();
     System.out.println("Player Name: " + name + "\n" + "Total Yards: " + tYards + "\n" + "Number of Super Bowl wins: "
             + sbWins);
 
   }
 
-  private static void writePlayerToFile(NFL_Player player) throws IOException {
-    try (BufferedWriter bw = new BufferedWriter(new FileWriter("Player File"))) {
-      int playerCount = 6;
-      for (int i = 0; i < playerCount; i++) {
-        String key = player.getPlayerKey();
-        String fname = player.getFirstName();
-        String lname = player.getLastName();
-        String pos = player.getPosition();
-        String team = player.getTeamName();
-        String name = player.getFullName(player.firstName, player.lastName);
-        int rYards = player.getRushingYards();
-        int pYards = player.getPassingYards();
-        int tYards = player.getTotalYardsPerGame(player.rushingYards, player.passingYards);
-        int sbWins = player.getNumberOfSuperBowlWins();
-        String playerFile = (key + " " + fname + " " + lname + " " + name + " " + pos
-                + " " + team + " " + rYards + " " + pYards + " " + tYards + " " + sbWins
-                + "," + "\n");
-        bw.write(playerFile);
-      }
-    }
-  }
-
-
-  public static void playerManager(NFL_Player player) {
-    ArrayList<String> playerArray = new ArrayList<String>();
-    playerArray.add(player.playerKey);
-    playerArray.add(player.firstName);
-    playerArray.add(player.lastName);
-    playerArray.add(player.position);
-    playerArray.add(player.teamName);
-    System.out.print(playerArray.get(2) + "BLAHBLAH");
-  }
-
-  private static void statManger(NFL_Player player){
-    ArrayList<Integer> statArray = new ArrayList<Integer>();
-    statArray.add(player.rushingYards);
-    statArray.add(player.passingYards);
-    statArray.add(player.numberOfSuperBowlWins);
-
-  }
-
-
-  private String getPlayerKey() {
+  public String getPlayerKey() {
     return playerKey;
   }
 
-  private void setPlayerKey(String playerKey) {
+  public void setPlayerKey(String playerKey) {
     this.playerKey = playerKey;
   }
 
-  private String getFirstName() {
+  public String getFirstName() {
     return firstName;
   }
 
-  private void setFirstName(String firstName) {
+  public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
-  private String getLastName() {
+  public String getLastName() {
     return lastName;
   }
 
-  private void setLastName(String lastName) {
+  public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
-  private String getPosition() {
+  public String getPosition() {
     return position;
   }
 
-  private void setPosition(String position) {
+  public void setPosition(String position) {
     this.position = position;
   }
 
-  private String getTeamName() {
+  public String getTeamName() {
     return teamName;
   }
 
-  private void setTeamName(String teamName) {
+  public void setTeamName(String teamName) {
     this.teamName = teamName;
   }
 
-  private String getFullName(String firstName, String lastName) {
+  public String getFullName() {
     return firstName + " " + lastName;
   }
 
-  private void setFullName(String firstName, String lastName) {
-    this.fullName = firstName + " " + lastName;
+  public void setFullName(String firstName, String lastName){
+    setFirstName(firstName);
+    setLastName(lastName);
   }
 
-  private int getRushingYards() {
+  public int getRushingYards() {
     return rushingYards;
   }
 
-  private void setRushingYards(int rushingYards) {
+  public void setRushingYards(int rushingYards) {
     this.rushingYards = rushingYards;
   }
 
-  private int getPassingYards() {
+  public int getPassingYards() {
     return passingYards;
   }
 
-  private void setPassingYards(int passingYards) {
+  public void setPassingYards(int passingYards) {
     this.passingYards = passingYards;
   }
 
-  private int getTotalYardsPerGame(int rushingYards, int passingYards) {
-    int totalYardsPerGame = rushingYards + passingYards;
-    return totalYardsPerGame;
+  public int getTotalYardsPerGame() {
+    return rushingYards + passingYards;
   }
 
-  private void setTotalYardsPerGame(int rushingYards, int passingYards) {
-    this.totalYardsPerGame = rushingYards + passingYards;
+  public void setTotalYardsPerGame(int rushingYards, int passingYards){
+    setRushingYards(rushingYards);
+    setPassingYards(passingYards);
   }
 
-  private int getNumberOfSuperBowlWins() {
+  public int getNumberOfSuperBowlWins() {
     return numberOfSuperBowlWins;
   }
 
-  private void setNumberOfSuperBowlWins(int numberOfSuperBowlWins) {
+  public void setNumberOfSuperBowlWins(int numberOfSuperBowlWins) {
     this.numberOfSuperBowlWins = numberOfSuperBowlWins;
   }
 
-
+  @Override
+  public String toString() {
+    String key = getPlayerKey();
+    String fname = getFirstName();
+    String lname = getLastName();
+    String pos = getPosition();
+    String team = getTeamName();
+    String name = getFullName();
+    int rYards = getRushingYards();
+    int pYards = getPassingYards();
+    int tYards = getTotalYardsPerGame();
+    int sbWins = getNumberOfSuperBowlWins();
+    String playerLine = (key + " " + fname + " " + lname + " " + name + " " + pos
+            + " " + team + " " + rYards + " " + pYards + " " + tYards + " " + sbWins
+            + "," + "\n");
+    return playerLine;
+  }
 }
