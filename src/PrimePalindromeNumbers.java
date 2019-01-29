@@ -20,7 +20,11 @@ public class PrimePalindromeNumbers {
   }
 
   public static boolean prime(int number) {
-    if (number % 2 != 0) {
+    int x = 2;
+    while (number % x > 0) {
+      x += 1;
+    }
+    if (x == number) {
       return true;
     } else {
       return false;
