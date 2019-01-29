@@ -10,20 +10,17 @@ public class PrimePalindromeNumbers {
 
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
-    int foo = input.nextInt();
-    for (int i = 2; i <= foo; i++) {
+    System.out.println("Please enter a number:");
+    int number = input.nextInt();
+    for (int i = 2; i <= number; i++) {
       if (prime(i) && palindrome(i)) {
-        System.out.println(i);
+        System.out.println(i + " Is both a prime number and a palindrome");
       }
     }
-
-
   }
 
-
   public static boolean prime(int number) {
-    int x = 2;
-    if (number % x != 0) {
+    if (number % 2 != 0) {
       return true;
     } else {
       return false;
@@ -33,7 +30,7 @@ public class PrimePalindromeNumbers {
   public static boolean palindrome(int number) {
     int reverseNumber = 0;
     int tempNumber = number;
-    int remainder = 0;
+    int remainder;
     while (number > 0) {
       remainder = number % 10;
       reverseNumber = (reverseNumber * 10) + remainder;
@@ -44,7 +41,6 @@ public class PrimePalindromeNumbers {
     } else {
       return false;
     }
-
   }
 }
 
