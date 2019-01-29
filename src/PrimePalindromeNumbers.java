@@ -13,13 +13,13 @@ public class PrimePalindromeNumbers {
     System.out.println("Please enter a number:");
     int number = input.nextInt();
     for (int i = 2; i <= number; i++) {
-      if (prime(i) && palindrome(i)) {
+      if (isPrime(i) && isPalindrome(i)) {
         System.out.println(i + " Is both a prime number and a palindrome");
       }
     }
   }
 
-  public static boolean prime(int number) {
+  public static boolean isPrime(int number) {
     int x = 2;
     while (number % x > 0) {
       x += 1;
@@ -31,7 +31,7 @@ public class PrimePalindromeNumbers {
     }
   }
 
-  public static boolean palindrome(int number) {
+  public static boolean isPalindrome(int number) {
     int reverseNumber = 0;
     int tempNumber = number;
     int remainder;
