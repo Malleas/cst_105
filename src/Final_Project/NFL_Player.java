@@ -11,30 +11,29 @@ import static Final_Project.Helpers.KeyGen.playerKey;
 /**
  * All work is created by Matt Sievers on 01-22-2019 for use in CST-105
  */
-public class NFL_Player {
+public abstract class NFL_Player {
 
-  private String playerKey;
-  private String firstName;
-  private String lastName;
-  private String position;
-  private String teamName;
+  public String playerKey;
+  public String firstName;
+  public String lastName;
+  public String position;
+  public String teamName;
   private int rushingYards;
   private int passingYards;
   private int numberOfSuperBowlWins;
 
   public NFL_Player(String playerKey, String firstName, String lastName, String position, String teamName,
-                    int rushingYards, int passingYards, int numberOfSuperBowlWins) {
+                    int numberOfSuperBowlWins) {
     this.playerKey = playerKey;
     this.firstName = firstName;
     this.lastName = lastName;
     this.position = position;
     this.teamName = teamName;
-    this.rushingYards = rushingYards;
-    this.passingYards = passingYards;
     this.numberOfSuperBowlWins = numberOfSuperBowlWins;
   }
 
-  public NFL_Player(){}
+  public NFL_Player() {
+  }
 
 
   public void printPlayerStats() {
@@ -90,7 +89,7 @@ public class NFL_Player {
     return firstName + " " + lastName;
   }
 
-  public void setFullName(String firstName, String lastName){
+  public void setFullName(String firstName, String lastName) {
     setFirstName(firstName);
     setLastName(lastName);
   }
@@ -115,7 +114,7 @@ public class NFL_Player {
     return rushingYards + passingYards;
   }
 
-  public void setTotalYardsPerGame(int rushingYards, int passingYards){
+  public void setTotalYardsPerGame(int rushingYards, int passingYards) {
     setRushingYards(rushingYards);
     setPassingYards(passingYards);
   }
@@ -129,20 +128,6 @@ public class NFL_Player {
   }
 
   @Override
-  public String toString() {
-    String key = getPlayerKey();
-    String fname = getFirstName();
-    String lname = getLastName();
-    String pos = getPosition();
-    String team = getTeamName();
-    String name = getFullName();
-    int rYards = getRushingYards();
-    int pYards = getPassingYards();
-    int tYards = getTotalYardsPerGame();
-    int sbWins = getNumberOfSuperBowlWins();
-    String playerLine = (key + " " + fname + " " + lname + " " + name + " " + pos
-            + " " + team + " " + rYards + " " + pYards + " " + tYards + " " + sbWins
-            + "," + "\n");
-    return playerLine;
-  }
+  public abstract String toString();
+
 }
