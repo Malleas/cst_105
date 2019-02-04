@@ -1,3 +1,5 @@
+package CST105.Week3;
+
 import java.util.Scanner;
 
 /**

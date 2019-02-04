@@ -1,3 +1,5 @@
+package CST105.Week1;
+
 /**
  * All work is created by Matt Sievers on 12-10-2018 for use in CST-105
  */

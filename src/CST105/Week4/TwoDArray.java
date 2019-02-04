@@ -1,3 +1,5 @@
+package CST105.Week4;
+
 import java.io.BufferedReader;
 import java.util.Scanner;
 import java.io.*;
