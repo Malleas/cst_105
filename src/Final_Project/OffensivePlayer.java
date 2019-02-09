@@ -45,19 +45,12 @@ public class OffensivePlayer extends NFL_Player {
 
   @Override
   public String toString() {
-    String key = getPlayerKey();
-    String fname = getFirstName();
-    String lname = getLastName();
-    String pos = getPosition();
-    String team = getTeamName();
-    String name = getFullName();
-    int oRushingYards = getOffensiveRushingYards();
-    int oPassingYards = getOffensivePassingYards();
-    int oRecievingYards = getOffensiveRecievingYards();
-    int tYards = getTotalYardsPerGame();
-    int sbWins = getNumberOfSuperBowlWins();
-    String playerLine = String.format("%-37s%-15s%-15s%-26s%-15s%-15s%-15s%-15s%-15s%-15s\n", key, fname, lname, name,
-            pos, team, oRushingYards, +oPassingYards, +oRecievingYards, +sbWins);
-    return playerLine;
+    return "OffensivePlayer{" +
+            ", playerKey='" + playerKey + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", position='" + position + '\'' +
+            '}';
   }
+
 }
